@@ -1,0 +1,18 @@
+@import "../../variable.scss";
+@font-face {
+  font-family: "Jura";
+  font-style: "meduim";
+  font-weight: 500;
+  src: local("Jura-Meduim"),
+    url("../../assets/Jura/Jura-VariableFont_wght.ttf") format("opentype");
+}
+#navbar {
+  .openbtn {
+    cursor: pointer;
+    border: none;
+  }
+  .icon {
+    font-size: 30px;
+    color: white;
+  }
+}

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserSectionComponent } from './user-section.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('../main/main.module').then((mod) => mod.MainModule),
+    component: UserSectionComponent,
   },
   {
     path: '**',
@@ -14,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class UserSectionRoutingModule {}
