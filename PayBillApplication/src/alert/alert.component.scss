@@ -1,0 +1,8 @@
+#alert {
+  display: flex;
+  justify-content: center;
+  .alert-body {
+    border-radius: 5px !important;
+    font-size: 20px;
+  }
+}

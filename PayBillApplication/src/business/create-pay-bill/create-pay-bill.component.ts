@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { PREFIX_LIST } from 'src/app.constant';
-import { ILedger } from 'src/model/Ledger';
-import { Employee, IEmployee } from './../../model/Emp';
+import { Ledger } from 'src/model/Ledger';
+import { EmployeeService } from 'src/service/employee.service';
+import { LedgerService } from 'src/service/ledger.service';
+import { DatePicker } from './../../model/DatePicker';
+import { Employee } from './../../model/Emp';
+import { EventManager } from './../../service/event-manager';
+import { UtilService } from './../../service/util.service';
 
 @Component({
   selector: 'app-create-pay-bill',
@@ -10,33 +13,55 @@ import { Employee, IEmployee } from './../../model/Emp';
   styleUrls: ['./create-pay-bill.component.scss'],
 })
 export class CreatePayBillComponent implements OnInit {
-  ledger: ILedger;
-  emp: IEmployee;
-  PREFIX_LIST = PREFIX_LIST;
-  active = 1;
-  items: MenuItem[];
-  activeItem: MenuItem;
+  empList: Employee[];
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.emp = new Employee();
-    this.emp.staffCode = '321615611';
-    this.emp.empName = 'A.T. KOHAD';
-    this.emp.prefix = 'SHREE';
-    this.emp.designation = 'PRINCIPAL';
-    this.emp.level = 12;
-
-    this.items = [
-      { label: 'Home', icon: 'pi pi-fw pi-home' },
-      { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-      { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
-      { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-      { label: 'Settings', icon: 'pi pi-fw pi-cog' },
-    ];
-
-    this.activeItem = this.items[0];
+  constructor(
+    private utilService: UtilService,
+    public eventManager: EventManager,
+    private employeeService: EmployeeService,
+    private ledgerService: LedgerService
+  ) {
+    this.empList = [];
+    this.eventManager.ledger = new Ledger();
+    this.eventManager.ledger.employee = new Employee();
+    this.eventManager.ledger.noOfDays = null;
+    this.eventManager.initLedger();
   }
 
-  savePayBill() {}
+  ngOnInit(): void {
+    this.employeeService.getAllEmp().subscribe((res) => {
+      this.empList = res['data'];
+    });
+  }
+
+  onOptionChangeHandler(seletedEmp: Employee) {
+    this.eventManager.ledger.employee = seletedEmp;
+    this.eventManager.ledger.noOfDays = null;
+    this.eventManager.initLedger();
+  }
+
+  dateEmitHandler(selectedDate: DatePicker) {
+    this.eventManager.ledger.date = this.utilService.formatDate(selectedDate);
+    this.eventManager.ledger.noOfDays = this.utilService.daysInMonth(
+      selectedDate.month,
+      selectedDate.year
+    );
+    this.getPayBill();
+  }
+
+  private getPayBill() {
+    this.ledgerService
+      .getPayBill(
+        this.eventManager.ledger.employee.empId,
+        this.eventManager.ledger.date
+      )
+      .subscribe((res) => {
+        if (res['data']) {
+          this.eventManager.ledger = res['data'];
+        } else {
+          this.eventManager.ledger.ledgerId = null;
+          this.eventManager.initLedger();
+        }
+      });
+  }
 }

@@ -1,12 +1,15 @@
+@import "../../variable.scss";
+
 #sidebar {
+  background-image: -webkit-linear-gradient($sidebar-bgcolor, $navbar-bgcolor);
+  height: 100%;
   .links {
     text-decoration: auto;
     color: white;
     font-size: 20px;
   }
   .links:hover {
-    font-size: 25px;
-    color: darkslategray;
+    color: $icon-hover;
   }
   .icon {
     font-size: 30px;
@@ -14,10 +17,9 @@
   }
   .icon:hover {
     cursor: pointer;
-    color: darkslategray;
+    color: $icon-hover;
   }
   .logo {
     width: 50px;
-    border-right: 1px solid #4edaa4;
   }
 }

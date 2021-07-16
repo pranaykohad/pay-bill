@@ -1,0 +1,219 @@
+<div id="preview" class="pt-1">
+
+  <table class="table table-hover table-bordered">
+
+    <thead>
+      <tr>
+        <th id="allow">
+          <div>
+            <label>Allowances</label>
+          </div>
+        </th>
+        <th id="dudc">
+          <div>
+            <label>Deductions</label>
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Pay in Pay Martix:</label>
+            <span class="bold">{{eventManager.ledger.allowance.payInPayMatrix | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>CPF Subscription:</label>
+            <span class="bold">{{eventManager.ledger.deduction.cpfSubs | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>D.A. ({{setting.daAllowancePer}}% Pay in Pay Martix):</label>
+            <span class="bold">{{eventManager.ledger.allowance.dearnessAllow | currencyComma}}
+            </span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>CPF Arrears:</label>
+            <span class="bold">{{eventManager.ledger.deduction.cpfArrears | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Special Allow. ({{setting.spclAllowancePer}}% Pay in Pay Martix):</label>
+            <span class="bold">{{eventManager.ledger.allowance.specialAllow | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>CPF Advance:</label>
+            <span class="bold">{{eventManager.ledger.deduction.cpfAdvance | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>HRA: </label>
+            <span class="bold">{{eventManager.ledger.allowance.hra | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Number of Installment:</label>
+            <span class="bold">{{eventManager.ledger.deduction.noOfInstall | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Travel Allowance: </label>
+            <span class="bold">{{eventManager.ledger.allowance.travelAllow | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>GSLIS: </label>
+            <span class="bold">{{eventManager.ledger.deduction.gslis | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>D.A on T.R. ({{setting.daOnTrAllowancePer}}% of Travel Allowance):</label>
+            <span class="bold">{{eventManager.ledger.allowance.daOnTravelAllow | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>NPS(Mgmt. Share):</label>
+            <span class="bold">{{eventManager.ledger.deduction.npsMgmtShare | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>House Master Allowance:</label>
+            <span class="bold">{{eventManager.ledger.allowance.houseMasterAllow | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>NPS(Own Share)</label>
+            <span class="bold">{{eventManager.ledger.deduction.npsOwnShare | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Cash handling Allowance:</label>
+            <span class="bold">{{eventManager.ledger.allowance.cashHandlingAllow | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>NPS(Mgmt. Share) Arrears</label>
+            <span class="bold">{{eventManager.ledger.deduction.npsMgmtShareArrears | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>NPS(Mgmt. Share) 10%:</label>
+            <span class="bold">{{eventManager.ledger.allowance.npsMgmtShare | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Income Tax: </label>
+            <span class="bold">{{eventManager.ledger.deduction.incomeTax | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Other Allowances:</label>
+            <span class="bold">{{eventManager.ledger.allowance.otherAllowance | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Professional Tax: </label>
+            <span class="bold">{{eventManager.ledger.deduction.professionalTax | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="3"></td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Water and Electric Charges: </label>
+            <span class="bold">{{eventManager.ledger.deduction.waterElectricCharges | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Other Deduction1: </label>
+            <span class="bold">{{eventManager.ledger.deduction.otherDeduction1 | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Other Deduction2: </label>
+            <span class="bold">{{eventManager.ledger.deduction.otherDeduction2 | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Gross Total</label>
+            <span class="bold">&#8377; {{eventManager.ledger.allowance.grossTotal | currencyComma}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-between">
+            <label>Total Deduction</label>
+            <span class="bold">&#8377; {{eventManager.ledger.deduction.totalDeduction | currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="bg-green">
+        <td colspan="2">
+          <div class="d-flex justify-content-between">
+            <label>Net Amount</label>
+            <span class="bold">&#8377; {{eventManager.ledger.netAmount |
+              currencyComma}}</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <div class="d-flex justify-content-end">
+    <button class="col-md-2 btn btn-outline-success align-self-end" (click)="savePayBill()"
+      [disabled]="!eventManager.ledger.noOfDays">Save Pay Bill</button>
+  </div>
+
+</div>

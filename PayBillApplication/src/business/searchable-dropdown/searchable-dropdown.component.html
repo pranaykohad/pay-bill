@@ -1,1 +1,12 @@
-<p>searchable-dropdown works!</p>
+<p-dropdown #dropDown [options]="empList" [(ngModel)]="selectedEmp" optionLabel="firstName"
+  filterBy="firstName,lastName" [filter]="true" placeholder="Select an employee" appendTo='body'
+  [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [resetFilterOnHide]="true" (onHide)="onHide()">
+  <ng-template pTemplate="selectedItem">
+    <div class="label-cntr" *ngIf="selectedEmp">
+      <div>{{selectedEmp.firstName}} {{selectedEmp.lastName}}</div>
+    </div>
+  </ng-template>
+  <ng-template let-country pTemplate="item">
+    <div>{{country.firstName}} {{country.lastName}}</div>
+  </ng-template>
+</p-dropdown>

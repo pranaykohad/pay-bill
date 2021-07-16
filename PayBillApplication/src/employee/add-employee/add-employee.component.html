@@ -1,0 +1,85 @@
+<div>
+
+  <div class="form-group row pb-4">
+    <div class="col-md-3 d-flex flex-column">
+      <label for="prefix">Prefix</label>
+      <select (change)="setPrefix($event.target.value)" style="height: 38px;">
+        <option *ngFor="let prefix of PREFIX_LIST" [selected]="prefix === employee.prefix">{{prefix}}</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="firstName">First Name <span class="needed">*</span></label>
+      <input class="form-control" id="firstName" [(ngModel)]="employee.firstName"
+        (change)="setFirstName($event.target.value)" />
+    </div>
+    <div class="col-md-3">
+      <label for="lastName">Last Name <span class="needed">*</span></label>
+      <input class="form-control" id="lastName" [(ngModel)]="employee.lastName"
+        (change)="setLastName($event.target.value)" />
+    </div>
+    <div class="col-md-3">
+      <label for="shortName">Short Name <span class="needed">*</span></label>
+      <input class="form-control" id="shortName" [(ngModel)]="employee.shortName"
+        (change)="setShortName($event.target.value)" />
+    </div>
+  </div>
+
+  <div class="form-group row pb-4">
+    <div class="col-md-3">
+      <label for="staffCode">Staff Code <span class="needed">*</span></label>
+      <input class="form-control" id="staffCode" [(ngModel)]="employee.staffCode"
+        (change)="setStaffCode($event.target.value)" />
+    </div>
+    <div class="col-md-3">
+      <label for="designation">Designation <span class="needed">*</span></label>
+      <input class="form-control" id="designation" [(ngModel)]="employee.designation"
+        (change)="setDesignation($event.target.value)" />
+    </div>
+    <div class="col-md-3 d-flex flex-column">
+      <label for="level">Level <span class="needed">*</span></label>
+      <p-inputNumber id="level" [(ngModel)]="employee.level" inputId="withoutgrouping" [useGrouping]="false"
+        (change)="setLevel($event.target.value)">
+      </p-inputNumber>
+    </div>
+  </div>
+
+  <div class="form-group row pb-4">
+    <div class="col-md-3 d-flex flex-column">
+      <label for="PentionScheme">Pention Scheme</label>
+      <select id="PentionScheme" (change)="setPentionScheme($event.target.value)" style="height: 38px;">
+        <option *ngFor="let pention of PENTION_SCHEME" [selected]="pention === employee.pention">{{pention}}</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="noOfPostSanctioned">No. of Post Sanctioned <span class="needed">*</span></label>
+      <p-inputNumber id="noOfPostSanctioned" [(ngModel)]="employee.noOfPostSanctioned"
+        (onInput)="setNoOfPostSant($event.value)" inputId="withoutgrouping" [useGrouping]="false">
+      </p-inputNumber>
+    </div>
+    <div class="col-md-3">
+      <label for="staffInPosition">Staff in Position <span class="needed">*</span></label>
+      <p-inputNumber id="staffInPosition" [(ngModel)]="employee.staffInPosition" (onInput)="setStaffInPos($event.value)"
+        inputId="withoutgrouping" [useGrouping]="false">
+      </p-inputNumber>
+    </div>
+  </div>
+
+  <div class="form-group row pb-4">
+    <div class="col-md-3 d-flex flex-column">
+      <label for="type">Type</label>
+      <select id="type" (change)="setType($event.target.value)" style="height: 38px;">
+        <option *ngFor="let type of TYPE_LIST" [selected]="type === employee.empType">{{type}}</option>
+      </select>
+    </div>
+    <div class="col-md-3 d-flex flex-column">
+      <label for="role">Role</label>
+      <select id="role" (change)="setRole($event.target.value)" style="height: 38px;">
+        <option *ngFor="let role of ROLE_LIST" [selected]="role === employee.role">{{role}}</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="col-md-2 btn btn-success" [disabled]="!isSavedAllowed()" (click)="addEmployee()">Add
+    Employee</button>
+
+</div>

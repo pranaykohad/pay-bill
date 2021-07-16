@@ -1,0 +1,30 @@
+<div id="user-setion" class="p-3">
+
+  <div class="heading">Employee Section</div>
+
+  <hr class="mt-0">
+
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <a ngbNavLink>Add employee</a>
+      <ng-template ngbNavContent>
+        <app-add-employee></app-add-employee>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <a ngbNavLink>Update employee</a>
+      <ng-template ngbNavContent>
+        <app-update-employee></app-update-employee>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3">
+      <a ngbNavLink>Delete employee</a>
+      <ng-template ngbNavContent>
+        <app-delete-employee></app-delete-employee>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2 p-2 pt-0 emp-tab-content"></div>
+
+</div>

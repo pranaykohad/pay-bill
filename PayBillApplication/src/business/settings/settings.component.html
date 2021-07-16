@@ -1,0 +1,38 @@
+<div id="setting" class="p-3">
+
+  <div class="heading">Settings</div>
+
+  <hr class="mt-0">
+
+  <div class="form-group row pb-4">
+    <div>
+      <label for="daAllowancePer" style="margin-right: 94px;">Dearness Allowance
+        Percent</label>
+      <p-inputNumber id="daAllowancePer" [(ngModel)]="setting.daAllowancePer" (onInput)="onChange()"
+        inputId="integeronly">
+      </p-inputNumber>
+    </div>
+  </div>
+
+  <div class="form-group row pb-4">
+    <div>
+      <label for="spclAllowancePer" style="margin-right: 108px;">Special Allowance
+        Percent</label>
+      <p-inputNumber id="spclAllowancePer" [(ngModel)]="setting.spclAllowancePer" (onInput)="onChange()"
+        inputId="integeronly">
+      </p-inputNumber>
+    </div>
+  </div>
+
+  <div class="form-group row pb-4">
+    <div>
+      <label for="daOnTrAllowancePer" style="margin-right: 29px">Dearness on Travel Allowance Percent</label>
+      <p-inputNumber id="daOnTrAllowancePer" [(ngModel)]="setting.daOnTrAllowancePer" (onInput)="onChange()"
+        inputId="integeronly">
+      </p-inputNumber>
+    </div>
+  </div>
+
+  <button class="col-md-2 btn btn-primary" (click)="saveSetting()" [disabled]="!isSaveAllowed">Update Settings</button>
+
+</div>

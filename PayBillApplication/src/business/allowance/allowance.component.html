@@ -1,70 +1,88 @@
-<div>
+<div class="pt-1">
   <div class="form-group row pb-4">
-    <div class="col-md-2">
-      <label for="level">Level</label>
-      <input class="form-control" id="level" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="post">No. of Post Sanctioned</label>
-      <input class="form-control" id="post" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="position">Staff Position</label>
-      <input class="form-control" id="position" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="days">Days</label>
-      <input class="form-control" id="days" type="text">
-    </div>
-    <div class="col-md-2">
+    <div class="col-md-4 d-flex flex-column">
       <label for="matrix">Pay in Pay Martix</label>
-      <input class="form-control" id="matrix" type="text">
+      <p-inputNumber id="matrix" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.allowance.payInPayMatrix"
+        (onInput)="calculateOtherFields($event.value)" inputId="integeronly">
+      </p-inputNumber>
     </div>
-    <div class="col-md-2">
-      <label for="da">D.A. 17%</label>
-      <input class="form-control" id="da" type="text">
+    <div class="col-md-4 d-flex flex-column">
+      <label for="da">D.A. ({{setting.daAllowancePer}}% Pay in Pay Martix)</label>
+      <p-inputNumber id="da" [styleClass]="'class-disable'" [inputStyleClass]="'bold'"
+        [(ngModel)]="eventManager.ledger.allowance.dearnessAllow" inputId="integeronly" disabled>
+      </p-inputNumber>
     </div>
+    <div class="col-md-4 d-flex flex-column"
+      *ngIf="eventManager.ledger.employee.empType === 'TEACHING';else nonTeaching">
+      <label for="spc-allow">Special Allow. ({{setting.spclAllowancePer}}% Pay in Pay Martix)</label>
+      <p-inputNumber id="spc-allow" [styleClass]="'class-disable'" [inputStyleClass]="'bold'"
+        [(ngModel)]="eventManager.ledger.allowance.specialAllow" inputId="integeronly" disabled>
+      </p-inputNumber>
+    </div>
+    <ng-template #nonTeaching>
+      <div class="col-md-4 d-flex flex-column">
+        <label for="cha">Cash Handling Allowance</label>
+        <p-inputNumber id="cha" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.allowance.cashHandlingAllow"
+          inputId="integeronly" (onInput)="setCHA($event.value)">
+        </p-inputNumber>
+      </div>
+    </ng-template>
   </div>
 
   <div class="form-group row pb-4">
-    <div class="col-md-2">
-      <label for="spc-allow">Special Allow. 10%</label>
-      <input class="form-control" id="spc-allow" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="hra">HRA</label>
-      <input class="form-control" id="hra" type="text">
-    </div>
-    <div class="col-md-2">
+    <div class="col-md-4 d-flex flex-column">
       <label for="ta">Travel Allowance</label>
-      <input class="form-control" id="ta" type="text">
+      <p-inputNumber id="ta" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.allowance.travelAllow"
+        inputId="integeronly" (onInput)="calculateDAonTA($event.value)">
+      </p-inputNumber>
     </div>
-    <div class="col-md-2">
-      <label for="da-tr">D.A on T.R. Allow. @17%</label>
-      <input class="form-control" id="da-tr" type="text">
+    <div class="col-md-4 d-flex flex-column">
+      <label for="da-tr">D.A on T.R. ({{setting.daOnTrAllowancePer}}% of Travel Allowance)</label>
+      <p-inputNumber id="da-tr" [inputStyleClass]="'bold'" [styleClass]="'class-disable'" [inputStyleClass]="'bold'"
+        [(ngModel)]="eventManager.ledger.allowance.daOnTravelAllow" inputId="integeronly" disabled>
+      </p-inputNumber>
     </div>
-    <div class="col-md-2">
-      <label for="hm">H.M Alowance</label>
-      <input class="form-control" id="hm" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="cha">CHA</label>
-      <input class="form-control" id="cha" type="text">
+    <div class="col-md-4 d-flex flex-column">
+      <label for="hra">HRA</label>
+      <p-inputNumber id="hra" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.allowance.hra"
+        inputId="integeronly" (onInput)="setHRA($event.value)">
+      </p-inputNumber>
     </div>
   </div>
 
   <div class="form-group row pb-4">
-    <div class="col-md-4">
-      <label for="nps-ms-10">NPS(M/S) 10%</label>
-      <input class="form-control" id="nps-ms-10" type="text">
+    <div class="col-md-4 d-flex flex-column">
+      <label for="hm">House Master Allowance</label>
+      <p-inputNumber id="hm" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.allowance.houseMasterAllow"
+        inputId="integeronly" (onInput)="setHMA($event.value)">
+      </p-inputNumber>
     </div>
-    <div class="col-md-4">
-      <label for="other">Other </label>
-      <input class="form-control" id="other" type="text">
+    <div class="col-md-4 d-flex flex-column">
+      <label for="nps-ms-10">NPS(Mgmt. Share) 10%</label>
+      <p-inputNumber id="nps-ms-10" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.allowance.npsMgmtShare"
+        inputId="integeronly" (onInput)="setMgmtMs($event.value)">
+      </p-inputNumber>
     </div>
-    <div class="col-md-4">
-      <label for="gt" style="font-weight: bold;">Gross Total</label>
-      <input class="form-control" id="gt" type="text">
+    <div class="col-md-4 d-flex flex-column">
+      <label for="other">Other Allowances</label>
+      <p-inputNumber id="other" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.allowance.otherAllowance"
+        inputId="integeronly" (onInput)="setOtherAllow($event.value)">
+      </p-inputNumber>
+    </div>
+
+  </div>
+
+  <div class="form-group row pb-4 justify-content-between" style="margin-right: 0">
+    <div class="col-md-6 d-flex justify-content-start align-items-center">
+      <label for="gt" class="col-md-3">Gross Total</label>
+      <p-inputNumber id="gt" [styleClass]="'class-disable bg-green'" [inputStyleClass]="'bold'"
+        [(ngModel)]="eventManager.ledger.allowance.grossTotal" inputId="integeronly" disabled>
+      </p-inputNumber>
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+      <button class="btn btn-outline-danger" style="height: 38px;" (click)="eventManager.initAllowance()">Reset
+        Allowances</button>
     </div>
   </div>
+
 </div>

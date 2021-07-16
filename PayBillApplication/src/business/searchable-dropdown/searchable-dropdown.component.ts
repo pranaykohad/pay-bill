@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Employee } from 'src/model/Emp';
 
 @Component({
   selector: 'app-searchable-dropdown',
   templateUrl: './searchable-dropdown.component.html',
-  styleUrls: ['./searchable-dropdown.component.scss']
+  styleUrls: ['./searchable-dropdown.component.scss'],
 })
-export class SearchableDropdownComponent implements OnInit {
+export class SearchableDropdownComponent {
+  selectedEmp: Employee;
+  @Input() empList: Employee[];
+  @Output() onOptionChange = new EventEmitter<Employee>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  onHide() {
+    this.onOptionChange.emit(this.selectedEmp);
   }
-
 }

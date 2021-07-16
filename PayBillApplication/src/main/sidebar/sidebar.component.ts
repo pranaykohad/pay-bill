@@ -8,6 +8,7 @@ import {
   faAngleLeft,
   faAngleRight,
   IconDefinition,
+  faCog,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -22,6 +23,7 @@ export class SidebarComponent {
   faUser: IconDefinition = faUser;
   faInfo: IconDefinition = faInfo;
   faAddressCard: IconDefinition = faAddressCard;
+  faCog: IconDefinition = faCog;
   @Input() isIconView: boolean;
   @Output() openSidebarEmitter = new EventEmitter<boolean>();
 

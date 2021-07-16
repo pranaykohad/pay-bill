@@ -4,7 +4,7 @@ cd G:\pay bill app\PayBillApplication
 
 call ng build --prod
 
-cd ..\G:\pay bill app\PayBillApplication
+cd ..\application
 
 call mvn clean
 

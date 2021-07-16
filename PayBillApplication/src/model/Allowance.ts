@@ -1,32 +1,28 @@
-import { Ledger } from './Ledger';
-
 export interface IAllowance {
   allowanceId: number;
   payInPayMatrix: number;
-  da17Per: number;
-  spclAllow10Per: number;
+  dearnessAllow: number;
+  specialAllow: number;
   hra: number;
   travelAllow: number;
-  daOnTA17Per: number;
+  daOnTravelAllow: number;
   houseMasterAllow: number;
   cashHandlingAllow: number;
-  npsMgmtShare10Per: number;
+  npsMgmtShare: number;
   otherAllowance: number;
   grossTotal: number;
-  ledger: Ledger;
 }
 export class Allowance implements IAllowance {
   allowanceId: number;
   payInPayMatrix: number;
-  da17Per: number;
-  spclAllow10Per: number;
+  dearnessAllow: number;
+  specialAllow: number;
   hra: number;
   travelAllow: number;
-  daOnTA17Per: number;
+  daOnTravelAllow: number;
   houseMasterAllow: number;
   cashHandlingAllow: number;
-  npsMgmtShare10Per: number;
+  npsMgmtShare: number;
   otherAllowance: number;
   grossTotal: number;
-  ledger: Ledger;
 }

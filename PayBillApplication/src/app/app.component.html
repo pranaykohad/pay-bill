@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<div>
+  <div *ngIf="showLoader; else normalView" class="d-flex flex-column justify-content-center align-items-center"
+    style="height: 100vh;">
+    <app-loader></app-loader>
+  </div>
+  <ng-template #normalView>
+    <router-outlet></router-outlet>
+  </ng-template>
+</div>

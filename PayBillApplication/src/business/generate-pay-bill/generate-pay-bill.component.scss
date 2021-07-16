@@ -1,0 +1,22 @@
+#gen-pay-bill {
+  #preview-tab {
+    thead {
+      tr {
+        text-align: center;
+        background-color: #a5e1ad;
+      }
+    }
+  }
+  #emp-tab {
+    thead {
+      tr {
+        text-align: center;
+        background-color: #f29191;
+      }
+    }
+  }
+  .tab-cls {
+    height: 49vh;
+    overflow-y: auto;
+  }
+}

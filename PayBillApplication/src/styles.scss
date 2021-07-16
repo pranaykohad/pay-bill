@@ -1,1 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./variable.scss";
+
+@font-face {
+  font-family: "Jura";
+  font-style: "meduim";
+  font-weight: 500;
+  src: local("Jura-Meduim"),
+    url("../src/assets/Jura/Jura-VariableFont_wght.ttf") format("opentype");
+}
+
+body {
+  font-family: "Jura";
+  font-style: "meduim";
+  font-size: 14px;
+  label,
+  a {
+    font-weight: bold;
+  }
+  .needed {
+    color: red;
+  }
+  .heading {
+    font-weight: bold;
+    font-size: 20px;
+    color: #fc4a1a;
+  }
+  .tab-content {
+    border: 1px solid lightgrey;
+    border-top: none;
+    height: 52vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .class-disable {
+    opacity: 0.6;
+    background-color: lightgray;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .bg-green {
+    background-color: lightgreen;
+  }
+  .text-center {
+    text-align: center;
+  }
+}
+
+.text-gradient {
+  font-family: "Jura", sans-serif;
+  background-image: -webkit-linear-gradient(#f7b733, #fc4a1a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,66 +1,121 @@
-<div>
+<div class="pt-1">
   <div class="form-group row pb-4">
-    <div class="col-md-2">
-      <label for="cpf-sub">CPF Sub.</label>
-      <input class="form-control" id="cpf-sub" type="text">
+    <div class="col-md-3">
+      <label for="cpf-sub">CPF Subscription</label>
+      <p-inputNumber id="cpf-sub" [inputStyleClass]="'bold'"
+        [styleClass]="eventManager.ledger.employee.pentionScheme === NPS ? 'class-disable' : '' "
+        [disabled]="eventManager.ledger.employee.pentionScheme === NPS"
+        [(ngModel)]="eventManager.ledger.deduction.cpfSubs" (onInput)="setCpfSubs($event.value)" inputId="integeronly">
+      </p-inputNumber>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3 d-flex flex-column">
       <label for="nps-arr">CPF Arrears</label>
-      <input class="form-control" id="nps-arr" type="text">
+      <p-inputNumber id="nps-arr" [inputStyleClass]="'bold'"
+        [styleClass]="eventManager.ledger.employee.pentionScheme === NPS ? 'class-disable' : '' "
+        [disabled]="eventManager.ledger.employee.pentionScheme === NPS"
+        [(ngModel)]="eventManager.ledger.deduction.cpfArrears" (onInput)="setCpfArrears($event.value)"
+        inputId="integeronly"></p-inputNumber>
     </div>
-    <div class="col-md-2">
-      <label for="nps-adv">CPF Advances</label>
-      <input class="form-control" id="nps-adv" type="text">
+    <div class="col-md-3 d-flex flex-column">
+      <label for="nps-adv">CPF Advance</label>
+      <p-inputNumber id="nps-adv" [inputStyleClass]="'bold'"
+        [styleClass]="eventManager.ledger.employee.pentionScheme === NPS ? 'class-disable' : '' "
+        [disabled]="eventManager.ledger.employee.pentionScheme === NPS"
+        [(ngModel)]="eventManager.ledger.deduction.cpfAdvance" (onInput)="setCpfAdvance($event.value)"
+        inputId="integeronly"></p-inputNumber>
     </div>
-    <div class="col-md-2">
-      <label for="inst">Number of Inst</label>
-      <input class="form-control" id="inst" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="npm-ms">NPM(M/S)</label>
-      <input class="form-control" id="npm-ms" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="npm-os">NPM(O/S)</label>
-      <input class="form-control" id="npm-os" type="text">
+    <div class="col-md-3">
+      <label for="inst">Number of Installment</label>
+      <input class="form-control" id="inst" [ngClass]="'bold'"
+        [ngClass]="eventManager.ledger.employee.pentionScheme === NPS ? 'class-disable' : '' "
+        [disabled]="eventManager.ledger.employee.pentionScheme === NPS" type="text"
+        [(ngModel)]="eventManager.ledger.deduction.noOfInstall" (change)="setNoOfInstall($event.target.value)">
     </div>
   </div>
 
   <div class="form-group row pb-4">
-    <div class="col-md-2">
-      <label for="npm-ms-arr">NPM(M/S) Arrears</label>
-      <input class="form-control" id="npm-ms-arr" type="text">
+    <div class="col-md-3">
+      <label for="npm-ms">NPS(Mgmt. Share)</label>
+      <p-inputNumber id="npm-ms" [inputStyleClass]="'bold'"
+        [styleClass]="eventManager.ledger.employee.pentionScheme === CPF ? 'class-disable' : '' "
+        [disabled]="eventManager.ledger.employee.pentionScheme === CPF"
+        [(ngModel)]="eventManager.ledger.deduction.npsMgmtShare" (onInput)="setNpsMgmtShare($event.value)"
+        inputId="integeronly"></p-inputNumber>
     </div>
-    <div class="col-md-2">
-      <label for="npm-os-arr">NPM(O/S) Arrears</label>
-      <input class="form-control" id="npm-os-arr" type="text">
+    <div class="col-md-3">
+      <label for="npm-os">NPS(Own Share)</label>
+      <p-inputNumber id="npm-os" [inputStyleClass]="'bold'"
+        [styleClass]="eventManager.ledger.employee.pentionScheme === CPF ? 'class-disable' : '' "
+        [disabled]="eventManager.ledger.employee.pentionScheme === CPF"
+        [(ngModel)]="eventManager.ledger.deduction.npsOwnShare" (onInput)="setNpsOwnShare($event.value)"
+        inputId="integeronly"></p-inputNumber>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
+      <label for="npm-ms-arr">NPS(Mgmt. Share) Arrears</label>
+      <p-inputNumber id="npm-ms-arr" [inputStyleClass]="'bold'"
+        [styleClass]="eventManager.ledger.employee.pentionScheme === CPF ? 'class-disable' : '' "
+        [disabled]="eventManager.ledger.employee.pentionScheme === CPF"
+        [(ngModel)]="eventManager.ledger.deduction.npsMgmtShareArrears" (onInput)="setNpsMgmtShareArrears($event.value)"
+        inputId="integeronly"></p-inputNumber>
+    </div>
+    <div class="col-md-3">
+      <label for="npm-os-arr">NPS(Own Share) Arrears</label>
+      <p-inputNumber id="npm-os-arr" [inputStyleClass]="'bold'"
+        [styleClass]="eventManager.ledger.employee.pentionScheme === CPF ? 'class-disable' : '' "
+        [disabled]="eventManager.ledger.employee.pentionScheme === CPF"
+        [(ngModel)]="eventManager.ledger.deduction.npsOsArrears" (onInput)="setNpsOwnsArrears($event.value)"
+        inputId="integeronly"></p-inputNumber>
+    </div>
+  </div>
+
+  <div class="form-group row pb-4">
+    <div class="col-md-3 d-flex flex-column">
       <label for="i-tax" style="font-weight: bold;">Income Tax</label>
-      <input class="form-control" id="i-tax" type="text">
+      <p-inputNumber id="i-tax" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.deduction.incomeTax"
+        (onInput)="setIncomeTax($event.value)" inputId="integeronly"></p-inputNumber>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <label for="pt">Professional Tax</label>
-      <input class="form-control" id="pt" type="text">
+      <p-inputNumber id="pt" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.deduction.professionalTax"
+        (onInput)="setProfessionalTax($event.value)" inputId="integeronly"></p-inputNumber>
     </div>
-    <div class="col-md-2">
-      <label for="we-charges">W and E Charges</label>
-      <input class="form-control" id="we-charges" type="text">
+    <div class="col-md-3">
+      <label for="we-charges">Water and Electricity Charges</label>
+      <p-inputNumber id="we-charges" [inputStyleClass]="'bold'"
+        [(ngModel)]="eventManager.ledger.deduction.waterElectricCharges"
+        (onInput)="setWaterElectricCharges($event.value)" inputId="integeronly"></p-inputNumber>
+    </div>
+    <div class="col-md-1 d-flex flex-column">
+      <label for="gslis">GSLIS</label>
+      <p-inputNumber id="gslis" [inputStyleClass]="'bold'" [(ngModel)]="eventManager.ledger.deduction.gslis"
+        (onInput)="setGslis($event.value)" inputId="integeronly">
+      </p-inputNumber>
     </div>
   </div>
 
-  <div class="form-group row pb-4">
-    <div class="col-md-4">
-      <label for="other-bal">Other balance Income Tax (2020-21)</label>
-      <input class="form-control" id="other-bal" type="text">
+  <div class="form-group row align-items-center">
+    <div class="col-md-3">
+      <label for="other-ded1">Other Deduction1</label>
+      <p-inputNumber id="other-ded1" [inputStyleClass]="'bold'"
+        [(ngModel)]="eventManager.ledger.deduction.otherDeduction1" (onInput)="setOthersDeduction1($event.value)"
+        inputId="integeronly"></p-inputNumber>
     </div>
-    <div class="col-md-2">
-      <label for="od">Other Deduction</label>
-      <input class="form-control" id="od" type="text">
+    <div class="col-md-3">
+      <label for="other-ded2">Other Deduction2</label>
+      <p-inputNumber id="other-ded2" [inputStyleClass]="'bold'"
+        [(ngModel)]="eventManager.ledger.deduction.otherDeduction2" (onInput)="setOthersDeduction2($event.value)"
+        inputId="integeronly"></p-inputNumber>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <label for="td">Total Deduction</label>
-      <input class="form-control" id="td" type="text">
+      <p-inputNumber id="td" [inputStyleClass]="'bold'" [styleClass]="'class-disable bg-green'" disabled
+        [(ngModel)]="eventManager.ledger.deduction.totalDeduction" inputId="integeronly">
+      </p-inputNumber>
+    </div>
+    <div class="col-md-3 pt-3 d-flex justify-content-end">
+      <button class="btn btn-outline-danger" (click)="eventManager.initDeduction()">Reset
+        Deduction</button>
     </div>
   </div>
+
 </div>

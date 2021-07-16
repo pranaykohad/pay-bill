@@ -1,10 +1,10 @@
-<div class="d-flex justify-content-space-evenly" style="height: 100vh">
+<div id="main-cntr" class="d-flex justify-content-space-evenly">
 
   <div id="mySidebar" class="sidebar" #sidebar>
     <app-sidebar [isIconView]="isIconView" (openSidebarEmitter)="openSidebarEmitHandler()"></app-sidebar>
   </div>
 
-  <div id="main" style="width: 100%" #main>
+  <div id="main" #main>
     <app-navbar></app-navbar>
     <router-outlet></router-outlet>
   </div>

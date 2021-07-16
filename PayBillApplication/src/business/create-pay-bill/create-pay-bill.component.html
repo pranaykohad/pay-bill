@@ -1,210 +1,85 @@
-<div id="create-pay-bil" class="p-3" style="overflow-y: auto; height: 90%;">
+<div id="create-pay-bill" class="p-3">
 
-  <div class="form-group row pb-4">
+  <div class="heading">Add/Update Pay Bill</div>
+
+  <hr class="mt-0 mb-2">
+
+  <div class="form-group d-flex mb-2 align-items-baseline">
     <div class="col-md-3">
-      <label for="staff-code">Staff Code</label>
-      <input class="form-control" id="staff-code" type="text" [(ngModel)]="emp.empName">
+      <app-searchable-dropdown [empList]="empList" (onOptionChange)="onOptionChangeHandler($event)">
+      </app-searchable-dropdown>
     </div>
-    <button class="col-md-3 btn btn-primary mt-4" style="height: 38px;">Search Employee</button>
-  </div>
-
-  <div class="form-group row pb-4">
-
-    <div class="col-md-5 d-flex flex-row align-items-center">
-      <select disabled style="height: 38px; border-color: lightgray; border-radius: 6px;" class="mt-4">
-        <option *ngFor="let prefix of PREFIX_LIST" [selected]="prefix === emp.prefix">{{prefix}}</option>
-      </select>
-      <div class="col-md-10">
-        <label for="emp-name">Employee Name</label>
-        <div class="form-control class-disable" id="emp-name">{{emp.empName}}</div>
+    <div class="col-md-9 form-group d-flex align-items-center">
+      <div class="d-flex align-items-center col-md-4">
+        <label for="dp">Select date</label>
+        <app-date-picker id="dp"
+          [disabled]="!eventManager.ledger.employee || (eventManager.ledger.employee && !eventManager.ledger.employee.empId)"
+          (dateEmitter)="dateEmitHandler($event)">
+        </app-date-picker>
+      </div>
+      <div class="d-flex align-items-center col-md-5">
+        <label class="col-md-5" for="days">Days of Month</label>
+        <span id="days">{{eventManager.ledger.noOfDays}}</span>
       </div>
     </div>
-    <div class="col-md-4">
-      <label for="des">Designation</label>
-      <div class="form-control class-disable" id="des">{{emp.designation}}</div>
-    </div>
   </div>
 
-  <hr>
+  <table class="table table-hover table-bordered mb-3">
+    <thead>
+      <tr class="text-center">
+        <th id="emp-name">Employee Name</th>
+        <th id="emp-staff-code">Staff Code</th>
+        <th id="emp-des">Designation</th>
+        <th id="emp-level">Level</th>
+        <th id="emp-nps">Number of Post Sanctioned</th>
+        <th id="emp-sp">Staff in Position</th>
+        <th id="emp-ps">Pention Scheme</th>
+        <th id="emp-empt">Employee Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center" *ngIf="eventManager.ledger.employee">
+        <td>{{eventManager.ledger.employee.prefix}} {{eventManager.ledger.employee.shortName}}</td>
+        <td>{{eventManager.ledger.employee.staffCode}}</td>
+        <td>{{eventManager.ledger.employee.designation}}</td>
+        <td>{{eventManager.ledger.employee.level}}</td>
+        <td>{{eventManager.ledger.employee.noOfPostSanctioned}}</td>
+        <td>{{eventManager.ledger.employee.staffInPosition}}</td>
+        <td>{{eventManager.ledger.employee.pentionScheme}}</td>
+        <td>{{eventManager.ledger.employee.empType}}</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-    <li [ngbNavItem]="1">
-      <a ngbNavLink>Allowances</a>
-      <ng-template ngbNavContent>
-        <app-allowance></app-allowance>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="2">
-      <a ngbNavLink>Deductions</a>
-      <ng-template ngbNavContent>
-        <app-deduction></app-deduction>
-      </ng-template>
-    </li>
-    <li ngbNavItem="3">
-      <a ngbNavLink>Preview</a>
-      <ng-template ngbNavContent>
-        Preview
-      </ng-template>
-    </li>
-  </ul>
+  <div *ngIf="eventManager.ledger.noOfDays; else noPayBill">
+    <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Allowances</a>
+        <ng-template ngbNavContent>
+          <app-allowance></app-allowance>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Deductions</a>
+        <ng-template ngbNavContent>
+          <app-deduction></app-deduction>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink>Preview</a>
+        <ng-template ngbNavContent>
+          <app-preview></app-preview>
+        </ng-template>
+      </li>
+    </ul>
 
-  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    <div [ngbNavOutlet]="nav" class="mt-2 p-2 pt-0 tab-content"></div>
 
-
-
-  <!-- <div class="form-group row pb-4">
-    Allowances
   </div>
-
-  <div class="form-group row pb-4">
-    <div class="col-md-2">
-      <label for="level">Level</label>
-      <input class="form-control" id="level" type="text">
+  <ng-template #noPayBill>
+    <div class="d-flex justify-content-center mb-2 font-size-20">
+      Please select Employee and date
     </div>
-    <div class="col-md-2">
-      <label for="post">No. of Post Sanctioned</label>
-      <input class="form-control" id="post" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="position">Staff Position</label>
-      <input class="form-control" id="position" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="days">Days</label>
-      <input class="form-control" id="days" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="matrix">Pay in Pay Martix</label>
-      <input class="form-control" id="matrix" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="da">D.A. 17%</label>
-      <input class="form-control" id="da" type="text">
-    </div>
-  </div>
-
-  <div class="form-group row pb-4">
-    <div class="col-md-2">
-      <label for="spc-allow">Special Allow. 10%</label>
-      <input class="form-control" id="spc-allow" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="hra">HRA</label>
-      <input class="form-control" id="hra" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="ta">Travel Allowance</label>
-      <input class="form-control" id="ta" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="da-tr">D.A on T.R. Allow. @17%</label>
-      <input class="form-control" id="da-tr" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="hm">H.M Alowance</label>
-      <input class="form-control" id="hm" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="cha">CHA</label>
-      <input class="form-control" id="cha" type="text">
-    </div>
-  </div>
-
-  <div class="form-group row pb-4">
-    <div class="col-md-4">
-      <label for="nps-ms-10">NPS(M/S) 10%</label>
-      <input class="form-control" id="nps-ms-10" type="text">
-    </div>
-    <div class="col-md-4">
-      <label for="other">Other </label>
-      <input class="form-control" id="other" type="text">
-    </div>
-    <div class="col-md-4">
-      <label for="gt" style="font-weight: bold;">Gross Total</label>
-      <input class="form-control" id="gt" type="text">
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="form-group row pb-4">
-    Deductions
-  </div>
-
-  <div class="form-group row pb-4">
-    <div class="col-md-2">
-      <label for="cpf-sub">CPF Sub.</label>
-      <input class="form-control" id="cpf-sub" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="nps-arr">CPF Arrears</label>
-      <input class="form-control" id="nps-arr" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="nps-adv">CPF Advances</label>
-      <input class="form-control" id="nps-adv" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="inst">Number of Inst</label>
-      <input class="form-control" id="inst" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="npm-ms">NPM(M/S)</label>
-      <input class="form-control" id="npm-ms" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="npm-os">NPM(O/S)</label>
-      <input class="form-control" id="npm-os" type="text">
-    </div>
-  </div>
-
-  <div class="form-group row pb-4">
-    <div class="col-md-2">
-      <label for="npm-ms-arr">NPM(M/S) Arrears</label>
-      <input class="form-control" id="npm-ms-arr" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="npm-os-arr">NPM(O/S) Arrears</label>
-      <input class="form-control" id="npm-os-arr" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="i-tax" style="font-weight: bold;">Income Tax</label>
-      <input class="form-control" id="i-tax" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="pt">Professional Tax</label>
-      <input class="form-control" id="pt" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="we-charges">W and E Charges</label>
-      <input class="form-control" id="we-charges" type="text">
-    </div>
-  </div>
-
-  <div class="form-group row pb-4">
-    <div class="col-md-4">
-      <label for="other-bal">Other balance Income Tax (2020-21)</label>
-      <input class="form-control" id="other-bal" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="od">Other Deduction</label>
-      <input class="form-control" id="od" type="text">
-    </div>
-    <div class="col-md-2">
-      <label for="td">Total Deduction</label>
-      <input class="form-control" id="td" type="text">
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="form-group row pb-4 d-flex align-items-end">
-    <div class="col-md-3">
-      <label for="nm" style="font-weight: bold;">Net Amount</label>
-      <input class="form-control" id="nm" type="text">
-    </div>
-    <button class="col-md-3 btn btn-success" style="height: 38px;" (click)="savePayBill()">Save Pay
-      Bill</button>
-  </div> -->
+  </ng-template>
 
 </div>

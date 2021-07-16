@@ -1,4 +1,3 @@
-import { Ledger } from './Ledger';
 export interface IDeduction {
   deductionId: number;
   cpfSubs: number;
@@ -10,12 +9,12 @@ export interface IDeduction {
   npsOwnShare: number;
   npsMgmtShareArrears: number;
   npsOsArrears: number;
-  incomeTaxProfTax: number;
+  incomeTax: number;
+  professionalTax: number;
   waterElectricCharges: number;
-  othersDeduction1: number;
-  othersDeduction2: number;
+  otherDeduction1: number;
+  otherDeduction2: number;
   totalDeduction: number;
-  ledger: Ledger;
 }
 
 export class Deduction implements IDeduction {
@@ -29,10 +28,10 @@ export class Deduction implements IDeduction {
   npsOwnShare: number;
   npsMgmtShareArrears: number;
   npsOsArrears: number;
-  incomeTaxProfTax: number;
+  incomeTax: number;
+  professionalTax: number;
   waterElectricCharges: number;
-  othersDeduction1: number;
-  othersDeduction2: number;
+  otherDeduction1: number;
+  otherDeduction2: number;
   totalDeduction: number;
-  ledger: Ledger;
 }

@@ -1,3 +1,272 @@
-<div>
-  <app-date-picker></app-date-picker>
+<div id="gen-pay-bill" class="p-3">
+
+  <div class="heading">Download Pay Bill</div>
+
+  <hr class="mt-0 mb-2">
+
+  <div class="form-group d-flex mb-2 align-items-baseline">
+    <div class="col-md-3">
+      <app-searchable-dropdown [empList]="empList" (onOptionChange)="onOptionChangeHandler($event)">
+      </app-searchable-dropdown>
+    </div>
+    <div class="col-md-9 form-group d-flex align-items-center">
+      <div class="d-flex align-items-center col-md-4">
+        <label for="dp">Select date</label>
+        <app-date-picker id="dp" [disabled]="!selectedEmp || (selectedEmp && !selectedEmp.empId)"
+          (dateEmitter)="dateEmitHandler($event)">
+        </app-date-picker>
+      </div>
+      <div class="d-flex align-items-center col-md-5">
+        <label class="col-md-5" for="days">Days of Month</label>
+        <span id="days">{{noOfDays}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <table id="emp-tab" class="table table-hover table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th id="emp-name">Employee Name</th>
+          <th id="emp-staff-code">Staff Code</th>
+          <th id="emp-des">Designation</th>
+          <th id="emp-level">Level</th>
+          <th id="emp-nps">Number of Post Sanctioned</th>
+          <th id="emp-sp">Staff in Position</th>
+          <th id="emp-ps">Pention Scheme</th>
+          <th id="emp-empt">Employee Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center" *ngIf="selectedEmp">
+          <td>{{selectedEmp.prefix}} {{selectedEmp.shortName}}</td>
+          <td>{{selectedEmp.staffCode}}</td>
+          <td>{{selectedEmp.designation}}</td>
+          <td>{{selectedEmp.level}}</td>
+          <td>{{selectedEmp.noOfPostSanctioned}}</td>
+          <td>{{selectedEmp.staffInPosition}}</td>
+          <td>{{selectedEmp.pentionScheme}}</td>
+          <td>{{selectedEmp.empType}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center mb-2 tab-cls">
+    <table *ngIf="noOfDays; else noPayBill" id="preview-tab" class="table table-hover table-bordered">
+
+      <thead>
+        <tr>
+          <th id="allow">
+            <div class="d-flex justify-content-around">
+              <label>Allowances</label>
+            </div>
+          </th>
+          <th id="dudc">
+            <div class="d-flex justify-content-around">
+              <label>Deductions</label>
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Pay in Pay Martix:</label>
+              <span>{{ledger.allowance.payInPayMatrix | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>CPF Subscription:</label>
+              <span>{{ledger.deduction.cpfSubs | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>D.A. ({{setting.daAllowancePer}}% Pay in Pay Martix):</label>
+              <span>{{ledger.allowance.dearnessAllow | currencyComma}}
+              </span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>CPF Arrears:</label>
+              <span>{{ledger.deduction.cpfArrears | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Special Allow. ({{setting.spclAllowancePer}}% Pay in Pay Martix):</label>
+              <span> {{ledger.allowance.specialAllow | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>CPF Advance:</label>
+              <span>{{ledger.deduction.cpfAdvance | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>HRA: </label>
+              <span>{{ledger.allowance.hra | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Number of Installment:</label>
+              <span> {{ledger.deduction.noOfInstall | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Travel Allowance: </label>
+              <span>{{ledger.allowance.travelAllow | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>GSLIS: </label>
+              <span>{{ledger.deduction.gslis | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>D.A on T.R. ({{setting.daOnTrAllowancePer}}% of Travel Allowance):</label>
+              <span> {{ledger.allowance.daOnTravelAllow | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>NPS(Mgmt. Share):</label>
+              <span>{{ledger.deduction.npsMgmtShare | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>House Master Allowance:</label>
+              <span> {{ledger.allowance.houseMasterAllow | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>NPS(Own Share)</label>
+              <span>{{ledger.deduction.npsOwnShare | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Cash handling Allowance:</label>
+              <span>{{ledger.allowance.cashHandlingAllow | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>NPS(Mgmt. Share) Arrears</label>
+              <span>{{ledger.deduction.npsMgmtShareArrears | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>NPS(Mgmt. Share) 10%:</label>
+              <span>{{ledger.allowance.npsMgmtShare | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Income Tax: </label>
+              <span>{{ledger.deduction.incomeTax | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Other Allowances:</label>
+              <span> {{ledger.allowance.otherAllowance | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Professional Tax: </label>
+              <span>{{ledger.deduction.professionalTax | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="3"></td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Water and Electric Charges: </label>
+              <span>{{ledger.deduction.waterElectricCharges | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Other Deduction1: </label>
+              <span>{{ledger.deduction.otherDeduction1 | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Other Deduction2: </label>
+              <span>{{ledger.deduction.otherDeduction2 | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Gross Total</label>
+              <span>&#8377; {{ledger.allowance.grossTotal | currencyComma}}</span>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between">
+              <label>Total Deduction</label>
+              <span>&#8377; {{ledger.deduction.totalDeduction | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-between">
+              <label>Net Amount</label>
+              <span>&#8377; {{ledger.netAmount | currencyComma}}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noPayBill>
+      <div style="font-size: 20px;">{{userMsg}}</div>
+    </ng-template>
+  </div>
+
+  <button class="col-md-2 btn btn-outline-success align-self-end" *ngIf="noOfDays" (click)="downloadPayBill()">Download
+    Pay Bill</button>
 </div>

@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +9,6 @@ export class MainComponent implements AfterViewInit {
   isIconView = true;
   @ViewChild('sidebar') sidebar: ElementRef<HTMLElement>;
   @ViewChild('main') main: ElementRef<HTMLElement>;
-  constructor() {}
 
   ngAfterViewInit(): void {
     this.iconView();
@@ -31,8 +24,8 @@ export class MainComponent implements AfterViewInit {
   }
 
   private nameView() {
-    this.sidebar.nativeElement.style.width = '230px';
-    this.main.nativeElement.style.marginLeft = '230px';
+    this.sidebar.nativeElement.style.width = '250px';
+    this.main.nativeElement.style.marginLeft = '250px';
   }
 
   private iconView() {

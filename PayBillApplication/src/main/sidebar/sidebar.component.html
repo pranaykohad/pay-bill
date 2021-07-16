@@ -1,23 +1,27 @@
-<div id="sidebar" style="background-color: darkorange; height: 100%" class="d-flex flex-column p-2">
+<div id="sidebar" class="d-flex flex-column p-2">
   <div class="d-flex justify-content-end">
-    <img *ngIf="!isIconView" class="pr-2 logo" src="../../assets/nvslogo.jpg" alt="logo" />
-    <fa-icon class=" icon p-1 openbtn" [icon]="!isIconView ? faAngleLeft : faAngleRight" (click)="openNav()"></fa-icon>
+    <div *ngIf="!isIconView" style="font-size: 40px;" class="text-gradient">Solid Bills</div>
+    <fa-icon class="icon p-1 openbtn" style="font-size: 40px;" [icon]="!isIconView ? faAngleLeft : faAngleRight"
+      (click)="openNav()"></fa-icon>
   </div>
   <hr>
   <div *ngIf="!isIconView else iconList" class="d-flex flex-column">
-    <a href="javascript:void(0)" (click)="navigate('create-pay-bill')" class="links" title="Add Pay Bill">Add
+    <a href="javascript:void(0)" (click)="navigate('add-pay-bill')" class="links" title="Add/Update Pay Bill">Add/Update
       Pay Bill</a>
     <a href="javascript:void(0)" (click)="navigate('get-pay-bill')" class="links" title="Download Pay Bill">Download Pay
       Bill</a>
-    <a href="javascript:void(0)" (click)="navigate('user')" class="links" title="User Section">User Section</a>
+    <a href="javascript:void(0)" (click)="navigate('employee')" class="links" title="Employee Section">Employee
+      Section</a>
+    <a href="javascript:void(0)" (click)="navigate('setting')" class="links" title="Settings">Settings</a>
     <a href="javascript:void(0)" (click)="navigate('about')" class="links" title="About">About</a>
   </div>
   <ng-template #iconList>
     <div class="d-flex flex-column align-items-center">
-      <fa-icon class="icon" (click)="navigate('create-pay-bill')" [icon]="faAddressCard" title="Add Pay Bill">
+      <fa-icon class="icon" (click)="navigate('add-pay-bill')" [icon]="faAddressCard" title="Add/Update Pay Bill">
       </fa-icon>
       <fa-icon class="icon" (click)="navigate('get-pay-bill')" [icon]="faReceipt" title="Download Pay Bill"></fa-icon>
-      <fa-icon class="icon" (click)="navigate('user')" [icon]="faUser" title="User Section"></fa-icon>
+      <fa-icon class="icon" (click)="navigate('employee')" [icon]="faUser" title="Employee Section"></fa-icon>
+      <fa-icon class="icon" (click)="navigate('setting')" [icon]="faCog" title="Settings"></fa-icon>
       <fa-icon class="icon" (click)="navigate('about')" [icon]="faInfo" title="About"></fa-icon>
     </div>
   </ng-template>

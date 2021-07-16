@@ -1,3 +1,4 @@
+import { SettingsComponent } from './settings/settings.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
@@ -7,6 +8,10 @@ import { GeneratePayBillComponent } from './generate-pay-bill/generate-pay-bill.
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'add-pay-bill',
+  },
+  {
+    path: 'add-pay-bill',
     component: CreatePayBillComponent,
   },
   {
@@ -14,15 +19,21 @@ const routes: Routes = [
     component: GeneratePayBillComponent,
   },
   {
+    path: 'setting',
+    component: SettingsComponent,
+  },
+  {
     path: 'about',
     component: AboutComponent,
   },
   {
-    path: 'user',
+    path: 'employee',
     loadChildren: () =>
-      import('./user-section/user-section.module').then(
-        (mod) => mod.UserSectionModule
-      ),
+      import('../employee/employee.module').then((mod) => mod.EmployeeModule),
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];
 
