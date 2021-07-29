@@ -8,4 +8,5 @@ public interface EmpService {
 	Result getEmployee(final int empId);
 	Result getAllEmp();
 	Result postEmployee(final Employee emp);
+	Result deleteEmployee(final Employee emp);
 }

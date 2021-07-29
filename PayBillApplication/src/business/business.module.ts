@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { EmployeeService } from 'src/service/employee.service';
+import { LedgerManager } from 'src/service/ledger-manager';
 import { LedgerService } from 'src/service/ledger.service';
 import { SettingService } from 'src/service/setting.service';
 import { AboutComponent } from './about/about.component';
@@ -44,6 +45,7 @@ import { UpperCasePipe } from './upper-case.pipe';
     InputNumberModule,
     HttpClientModule,
   ],
-  providers: [EmployeeService, LedgerService, SettingService],
+  exports: [SearchableDropdownComponent],
+  providers: [EmployeeService, LedgerService, LedgerManager, SettingService],
 })
 export class BusinessModule {}

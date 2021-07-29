@@ -1,1 +1,35 @@
-<p>delete-employee works!</p>
+<div id="del-emp" style="margin-top: 10px;">
+  <div class="col-md-3 mb-3">
+    <app-searchable-dropdown [empList]="empList" (onOptionChange)="onOptionChangeHandler($event)">
+    </app-searchable-dropdown>
+  </div>
+  <div *ngIf="selectedEmp">
+    <table class="table table-hover table-bordered mb-3">
+      <thead>
+        <tr class="text-center">
+          <th id="emp-name">Employee Name</th>
+          <th id="emp-staff-code">Staff Code</th>
+          <th id="emp-des">Designation</th>
+          <th id="emp-level">Level</th>
+          <th id="emp-nps">Number of Post Sanctioned</th>
+          <th id="emp-sp">Staff in Position</th>
+          <th id="emp-ps">Pention Scheme</th>
+          <th id="emp-empt">Employee Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center">
+          <td>{{selectedEmp.prefix}} {{selectedEmp.shortName}}</td>
+          <td>{{selectedEmp.staffCode}}</td>
+          <td>{{selectedEmp.designation}}</td>
+          <td>{{selectedEmp.level}}</td>
+          <td>{{selectedEmp.noOfPostSanctioned}}</td>
+          <td>{{selectedEmp.staffInPosition}}</td>
+          <td>{{selectedEmp.pentionScheme}}</td>
+          <td>{{selectedEmp.empType}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-danger" (click)="deleteEmployee()">Delete Employee</button>
+  </div>
+</div>

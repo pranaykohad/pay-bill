@@ -88,7 +88,7 @@
         <tr>
           <td>
             <div class="d-flex justify-content-between">
-              <label>D.A. ({{setting.daAllowancePer}}% Pay in Pay Martix):</label>
+              <label>D.A. ({{ledger.daAllowancePer}}% Pay in Pay Martix):</label>
               <span>{{ledger.allowance.dearnessAllow | currencyComma}}
               </span>
             </div>
@@ -103,7 +103,8 @@
         <tr>
           <td>
             <div class="d-flex justify-content-between">
-              <label>Special Allow. ({{setting.spclAllowancePer}}% Pay in Pay Martix):</label>
+              <label>Special Allow. ({{ledger.spclAllowancePer}}% Pay in Pay
+                Martix):</label>
               <span> {{ledger.allowance.specialAllow | currencyComma}}</span>
             </div>
           </td>
@@ -145,7 +146,8 @@
         <tr>
           <td>
             <div class="d-flex justify-content-between">
-              <label>D.A on T.R. ({{setting.daOnTrAllowancePer}}% of Travel Allowance):</label>
+              <label>D.A on T.R. ({{ledger.daOnTrAllowancePer}}% of Travel
+                Allowance):</label>
               <span> {{ledger.allowance.daOnTravelAllow | currencyComma}}</span>
             </div>
           </td>
@@ -251,7 +253,7 @@
             </div>
           </td>
         </tr>
-        <tr>
+        <tr class="bg-green">
           <td colspan="2">
             <div class="d-flex justify-content-between">
               <label>Net Amount</label>

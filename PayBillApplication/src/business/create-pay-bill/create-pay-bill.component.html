@@ -13,13 +13,13 @@
       <div class="d-flex align-items-center col-md-4">
         <label for="dp">Select date</label>
         <app-date-picker id="dp"
-          [disabled]="!eventManager.ledger.employee || (eventManager.ledger.employee && !eventManager.ledger.employee.empId)"
+          [disabled]="!ledgerMgr.ledger.employee || (ledgerMgr.ledger.employee && !ledgerMgr.ledger.employee.empId)"
           (dateEmitter)="dateEmitHandler($event)">
         </app-date-picker>
       </div>
       <div class="d-flex align-items-center col-md-5">
         <label class="col-md-5" for="days">Days of Month</label>
-        <span id="days">{{eventManager.ledger.noOfDays}}</span>
+        <span id="days">{{ledgerMgr.ledger.noOfDays}}</span>
       </div>
     </div>
   </div>
@@ -38,20 +38,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="text-center" *ngIf="eventManager.ledger.employee">
-        <td>{{eventManager.ledger.employee.prefix}} {{eventManager.ledger.employee.shortName}}</td>
-        <td>{{eventManager.ledger.employee.staffCode}}</td>
-        <td>{{eventManager.ledger.employee.designation}}</td>
-        <td>{{eventManager.ledger.employee.level}}</td>
-        <td>{{eventManager.ledger.employee.noOfPostSanctioned}}</td>
-        <td>{{eventManager.ledger.employee.staffInPosition}}</td>
-        <td>{{eventManager.ledger.employee.pentionScheme}}</td>
-        <td>{{eventManager.ledger.employee.empType}}</td>
+      <tr class="text-center" *ngIf="ledgerMgr.ledger.employee">
+        <td>{{ledgerMgr.ledger.employee.prefix}} {{ledgerMgr.ledger.employee.shortName}}</td>
+        <td>{{ledgerMgr.ledger.employee.staffCode}}</td>
+        <td>{{ledgerMgr.ledger.employee.designation}}</td>
+        <td>{{ledgerMgr.ledger.employee.level}}</td>
+        <td>{{ledgerMgr.ledger.employee.noOfPostSanctioned}}</td>
+        <td>{{ledgerMgr.ledger.employee.staffInPosition}}</td>
+        <td>{{ledgerMgr.ledger.employee.pentionScheme}}</td>
+        <td>{{ledgerMgr.ledger.employee.empType}}</td>
       </tr>
     </tbody>
   </table>
 
-  <div *ngIf="eventManager.ledger.noOfDays; else noPayBill">
+  <div *ngIf="ledgerMgr.ledger.noOfDays; else noPayBill">
     <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs">
       <li [ngbNavItem]="1">
         <a ngbNavLink>Allowances</a>

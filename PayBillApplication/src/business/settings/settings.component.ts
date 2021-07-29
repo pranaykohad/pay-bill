@@ -12,6 +12,7 @@ import { ISetting, Setting } from '../../model/Setting';
 export class SettingsComponent implements OnInit {
   setting: ISetting;
   isSaveAllowed: boolean;
+
   constructor(
     private settingService: SettingService,
     private dataSharing: DataSharingService

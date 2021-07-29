@@ -8,7 +8,6 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 export class AlertComponent {
   private _message: string;
   @Input() type: string = 'fail';
-  alertTimeout: any;
 
   constructor(private cdrf: ChangeDetectorRef) {
     this.message = null;
@@ -17,15 +16,6 @@ export class AlertComponent {
   @Input()
   set message(message: string) {
     this._message = message;
-    if (message) {
-      if (this.alertTimeout) {
-        clearTimeout(this.alertTimeout);
-      }
-      this.alertTimeout = setTimeout(() => {
-        this._message = null;
-        this.cdrf.markForCheck();
-      }, 5000);
-    }
   }
 
   get message() {

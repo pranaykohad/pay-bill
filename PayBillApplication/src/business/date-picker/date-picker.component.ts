@@ -9,8 +9,9 @@ import { DatePicker } from '../../model/DatePicker';
 })
 export class DatePickerComponent {
   @Input() disabled: boolean = true;
-  private _initialDate: DatePicker;
   @Output() dateEmitter = new EventEmitter<DatePicker>();
+  private _initialDate: DatePicker;
+
   constructor(private calendar: NgbCalendar) {
     this.initialDate = this.calendar.getToday();
   }

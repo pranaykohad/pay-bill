@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { ISetting, Setting } from 'src/model/Setting';
-import { EventManager } from 'src/service/event-manager';
-import { SettingService } from 'src/service/setting.service';
+import { LedgerManager } from 'src/service/ledger-manager';
 
 @Component({
   selector: 'app-allowance',
@@ -9,30 +7,19 @@ import { SettingService } from 'src/service/setting.service';
   styleUrls: ['./allowance.component.scss'],
 })
 export class AllowanceComponent {
-  setting: ISetting;
-
-  constructor(
-    public eventManager: EventManager,
-    private settingService: SettingService
-  ) {
-    this.setting = new Setting();
-    this.setting.daAllowancePer = 17;
-    this.setting.spclAllowancePer = 10;
-    this.setting.daOnTrAllowancePer = 17;
-    this.initSettings();
-  }
+  constructor(public ledgerMgr: LedgerManager) {}
 
   calculateOtherFields(matrix: number) {
-    this.eventManager.ledger.allowance.payInPayMatrix = matrix;
-    this.eventManager.ledger.allowance.dearnessAllow = Math.round(
-      (this.eventManager.ledger.allowance.payInPayMatrix *
-        this.setting.daAllowancePer) /
+    this.ledgerMgr.ledger.allowance.payInPayMatrix = matrix;
+    this.ledgerMgr.ledger.allowance.dearnessAllow = Math.round(
+      (this.ledgerMgr.ledger.allowance.payInPayMatrix *
+        this.ledgerMgr.ledger.daAllowancePer) /
         100
     );
-    if (this.eventManager.ledger.employee.empType === 'TEACHING') {
-      this.eventManager.ledger.allowance.specialAllow = Math.round(
-        (this.eventManager.ledger.allowance.payInPayMatrix *
-          this.setting.spclAllowancePer) /
+    if (this.ledgerMgr.ledger.employee.empType === 'TEACHING') {
+      this.ledgerMgr.ledger.allowance.specialAllow = Math.round(
+        (this.ledgerMgr.ledger.allowance.payInPayMatrix *
+          this.ledgerMgr.ledger.spclAllowancePer) /
           100
       );
     }
@@ -40,58 +27,52 @@ export class AllowanceComponent {
   }
 
   setHRA(hra: number) {
-    this.eventManager.ledger.allowance.hra = hra;
+    this.ledgerMgr.ledger.allowance.hra = hra;
     this.updateGrossTotal();
   }
 
   calculateDAonTA(travelAllow: number) {
-    this.eventManager.ledger.allowance.travelAllow = travelAllow;
-    this.eventManager.ledger.allowance.daOnTravelAllow = Math.round(
-      (this.eventManager.ledger.allowance.travelAllow *
-        this.setting.daOnTrAllowancePer) /
+    this.ledgerMgr.ledger.allowance.travelAllow = travelAllow;
+    this.ledgerMgr.ledger.allowance.daOnTravelAllow = Math.round(
+      (this.ledgerMgr.ledger.allowance.travelAllow *
+        this.ledgerMgr.ledger.daOnTrAllowancePer) /
         100
     );
     this.updateGrossTotal();
   }
 
   setHMA(houseMasterAllow: number) {
-    this.eventManager.ledger.allowance.houseMasterAllow = houseMasterAllow;
+    this.ledgerMgr.ledger.allowance.houseMasterAllow = houseMasterAllow;
     this.updateGrossTotal();
   }
 
   setCHA(cashHandlingAllow: number) {
-    this.eventManager.ledger.allowance.cashHandlingAllow = cashHandlingAllow;
+    this.ledgerMgr.ledger.allowance.cashHandlingAllow = cashHandlingAllow;
     this.updateGrossTotal();
   }
 
   setMgmtMs(npsMgmtShare: number) {
-    this.eventManager.ledger.allowance.npsMgmtShare = npsMgmtShare;
+    this.ledgerMgr.ledger.allowance.npsMgmtShare = npsMgmtShare;
     this.updateGrossTotal();
   }
 
   setOtherAllow(otherAllowance: number) {
-    this.eventManager.ledger.allowance.otherAllowance = otherAllowance;
+    this.ledgerMgr.ledger.allowance.otherAllowance = otherAllowance;
     this.updateGrossTotal();
   }
 
-  private initSettings() {
-    this.settingService.getSetting().subscribe((res) => {
-      this.setting = res['data'];
-    });
-  }
-
   private updateGrossTotal() {
-    this.eventManager.ledger.allowance.grossTotal =
-      this.eventManager.ledger.allowance.payInPayMatrix +
-      this.eventManager.ledger.allowance.dearnessAllow +
-      this.eventManager.ledger.allowance.specialAllow +
-      this.eventManager.ledger.allowance.hra +
-      this.eventManager.ledger.allowance.travelAllow +
-      this.eventManager.ledger.allowance.daOnTravelAllow +
-      this.eventManager.ledger.allowance.houseMasterAllow +
-      this.eventManager.ledger.allowance.cashHandlingAllow +
-      this.eventManager.ledger.allowance.npsMgmtShare +
-      this.eventManager.ledger.allowance.otherAllowance;
-    this.eventManager.updateNetAmount();
+    this.ledgerMgr.ledger.allowance.grossTotal =
+      this.ledgerMgr.ledger.allowance.payInPayMatrix +
+      this.ledgerMgr.ledger.allowance.dearnessAllow +
+      this.ledgerMgr.ledger.allowance.specialAllow +
+      this.ledgerMgr.ledger.allowance.hra +
+      this.ledgerMgr.ledger.allowance.travelAllow +
+      this.ledgerMgr.ledger.allowance.daOnTravelAllow +
+      this.ledgerMgr.ledger.allowance.houseMasterAllow +
+      this.ledgerMgr.ledger.allowance.cashHandlingAllow +
+      this.ledgerMgr.ledger.allowance.npsMgmtShare +
+      this.ledgerMgr.ledger.allowance.otherAllowance;
+    this.ledgerMgr.updateNetAmount();
   }
 }

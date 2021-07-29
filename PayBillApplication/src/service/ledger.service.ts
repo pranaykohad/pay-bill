@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_URL } from 'src/app.constant';
 import { ILedger } from 'src/model/Ledger';
+import { HttpHeaders } from '@angular/common/http';
+import { Attachment } from 'src/model/Attachment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +20,9 @@ export class LedgerService {
     return this.http.get<ILedger>(
       `${BASE_URL}paybill?empId=${empId}&date=${date}`
     );
+  }
+
+  downloadPayBill(ledger: ILedger): Observable<Attachment> {
+    return this.http.post<Attachment>(`${BASE_URL}paybill/download`, ledger);
   }
 }

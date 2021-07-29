@@ -1,13 +1,9 @@
 package com.paybill.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Deduction {
@@ -30,10 +26,6 @@ public class Deduction {
 	private Long otherDeduction1;
 	private Long otherDeduction2;
 	private Long totalDeduction;
-
-	@OneToOne(mappedBy = "allowance", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private Ledger ledger;
 
 	public int getDeductionId() {
 		return deductionId;
@@ -161,14 +153,6 @@ public class Deduction {
 
 	public void setTotalDeduction(Long totalDeduction) {
 		this.totalDeduction = totalDeduction;
-	}
-
-	public Ledger getLedger() {
-		return ledger;
-	}
-
-	public void setLedger(Ledger ledger) {
-		this.ledger = ledger;
 	}
 
 }

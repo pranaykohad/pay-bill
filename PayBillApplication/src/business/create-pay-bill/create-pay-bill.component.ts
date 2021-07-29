@@ -1,48 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Ledger } from 'src/model/Ledger';
 import { EmployeeService } from 'src/service/employee.service';
 import { LedgerService } from 'src/service/ledger.service';
 import { DatePicker } from './../../model/DatePicker';
 import { Employee } from './../../model/Emp';
-import { EventManager } from './../../service/event-manager';
+import { LedgerManager } from '../../service/ledger-manager';
 import { UtilService } from './../../service/util.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-pay-bill',
   templateUrl: './create-pay-bill.component.html',
   styleUrls: ['./create-pay-bill.component.scss'],
 })
-export class CreatePayBillComponent implements OnInit {
+export class CreatePayBillComponent implements OnInit, OnDestroy {
   empList: Employee[];
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private utilService: UtilService,
-    public eventManager: EventManager,
+    public ledgerMgr: LedgerManager,
     private employeeService: EmployeeService,
     private ledgerService: LedgerService
   ) {
     this.empList = [];
-    this.eventManager.ledger = new Ledger();
-    this.eventManager.ledger.employee = new Employee();
-    this.eventManager.ledger.noOfDays = null;
-    this.eventManager.initLedger();
+    this.ledgerMgr.ledger = new Ledger();
+    this.ledgerMgr.ledger.employee = new Employee();
+    this.ledgerMgr.ledger.noOfDays = null;
+    this.ledgerMgr.initLedger();
   }
 
   ngOnInit(): void {
-    this.employeeService.getAllEmp().subscribe((res) => {
-      this.empList = res['data'];
-    });
+    this.subscription.add(
+      this.employeeService.getAllEmp().subscribe((res) => {
+        this.empList = res['data'];
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onOptionChangeHandler(seletedEmp: Employee) {
-    this.eventManager.ledger.employee = seletedEmp;
-    this.eventManager.ledger.noOfDays = null;
-    this.eventManager.initLedger();
+    this.ledgerMgr.ledger.employee = seletedEmp;
+    this.ledgerMgr.ledger.noOfDays = null;
+    this.ledgerMgr.initLedger();
   }
 
   dateEmitHandler(selectedDate: DatePicker) {
-    this.eventManager.ledger.date = this.utilService.formatDate(selectedDate);
-    this.eventManager.ledger.noOfDays = this.utilService.daysInMonth(
+    this.ledgerMgr.ledger.date = this.utilService.formatDate(selectedDate);
+    this.ledgerMgr.ledger.noOfDays = this.utilService.daysInMonth(
       selectedDate.month,
       selectedDate.year
     );
@@ -50,18 +58,21 @@ export class CreatePayBillComponent implements OnInit {
   }
 
   private getPayBill() {
-    this.ledgerService
-      .getPayBill(
-        this.eventManager.ledger.employee.empId,
-        this.eventManager.ledger.date
-      )
-      .subscribe((res) => {
-        if (res['data']) {
-          this.eventManager.ledger = res['data'];
-        } else {
-          this.eventManager.ledger.ledgerId = null;
-          this.eventManager.initLedger();
-        }
-      });
+    this.subscription.add(
+      this.ledgerService
+        .getPayBill(
+          this.ledgerMgr.ledger.employee.empId,
+          this.ledgerMgr.ledger.date
+        )
+        .subscribe((res) => {
+          if (res['data']) {
+            this.ledgerMgr.ledger = res['data'];
+          } else {
+            this.ledgerMgr.ledger.ledgerId = null;
+            this.ledgerMgr.initLedger();
+            this.ledgerMgr.initSettings();
+          }
+        })
+    );
   }
 }

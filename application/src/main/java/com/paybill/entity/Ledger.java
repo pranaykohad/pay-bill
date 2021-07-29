@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,13 +18,17 @@ public class Ledger {
 	private Long noOfDays;
 	private Long netAmount;
 
+	private Long daAllowancePer;
+	private Long spclAllowancePer;
+	private Long daOnTrAllowancePer;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Allowance allowance;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Deduction deduction;
 
-	@OneToOne
+	@ManyToOne
 	private Employee employee;
 
 	public int getLedgerId() {
@@ -80,6 +85,30 @@ public class Ledger {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public Long getDaAllowancePer() {
+		return daAllowancePer;
+	}
+
+	public void setDaAllowancePer(Long daAllowancePer) {
+		this.daAllowancePer = daAllowancePer;
+	}
+
+	public Long getSpclAllowancePer() {
+		return spclAllowancePer;
+	}
+
+	public void setSpclAllowancePer(Long spclAllowancePer) {
+		this.spclAllowancePer = spclAllowancePer;
+	}
+
+	public Long getDaOnTrAllowancePer() {
+		return daOnTrAllowancePer;
+	}
+
+	public void setDaOnTrAllowancePer(Long daOnTrAllowancePer) {
+		this.daOnTrAllowancePer = daOnTrAllowancePer;
 	}
 
 }

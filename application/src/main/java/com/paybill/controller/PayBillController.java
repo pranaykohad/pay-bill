@@ -15,7 +15,7 @@ import com.paybill.service.PayBillService;
 
 @RestController
 @RequestMapping("/api/paybill")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class PayBillController {
 
 	@Autowired
@@ -29,6 +29,11 @@ public class PayBillController {
 	@GetMapping()
 	public Result getPayBill(@RequestParam final int empId, @RequestParam final String date) {
 		return payBillService.getPayBill(empId, date);
+	}
+	
+	@PostMapping("download")
+	public Result downloadPayBill(@RequestBody final Ledger ledger) {
+		return payBillService.downloadPayBill(ledger);
 	}
 
 }

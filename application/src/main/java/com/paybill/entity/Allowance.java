@@ -1,13 +1,9 @@
 package com.paybill.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Allowance {
@@ -26,10 +22,6 @@ public class Allowance {
 	private Long npsMgmtShare;
 	private Long otherAllowance;
 	private Long grossTotal;
-
-	@OneToOne(mappedBy = "allowance", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private Ledger ledger;
 
 	public int getAllowanceId() {
 		return allowanceId;
@@ -125,14 +117,6 @@ public class Allowance {
 
 	public void setGrossTotal(Long grossTotal) {
 		this.grossTotal = grossTotal;
-	}
-
-	public Ledger getLedger() {
-		return ledger;
-	}
-
-	public void setLedger(Ledger ledger) {
-		this.ledger = ledger;
 	}
 
 }

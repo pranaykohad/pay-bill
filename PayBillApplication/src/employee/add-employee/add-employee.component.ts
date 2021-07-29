@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ALERT_EVENTS } from 'src/global-enums';
-import { Alert } from 'src/model/Alert';
 import { DataSharingService } from 'src/service/data-sharing.service';
 import { EmployeeService } from 'src/service/employee.service';
 import {
@@ -15,20 +15,24 @@ import { Employee, IEmployee } from './../../model/Emp';
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.scss'],
 })
-export class AddEmployeeComponent {
+export class AddEmployeeComponent implements OnDestroy {
   PREFIX_LIST = PREFIX_LIST;
   PENTION_SCHEME = [NPS, CPF];
   TYPE_LIST = TYPE_LIST;
   ROLE_LIST = ROLE_LIST;
   employee: IEmployee;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private employeeService: EmployeeService,
     private dataSharing: DataSharingService
   ) {
     this.initEmployee();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   setPrefix(prefix: string) {
@@ -80,11 +84,13 @@ export class AddEmployeeComponent {
   }
 
   addEmployee() {
-    this.employeeService.saveEmployee(this.employee).subscribe((res) => {
-      let message = null;
-      message = this.buildAlertMessage(res, message);
-      this.dataSharing.subject.next(message);
-    });
+    this.subscription.add(
+      this.employeeService.saveEmployee(this.employee).subscribe((res) => {
+        let message = null;
+        message = this.buildAlertMessage(res, message);
+        this.dataSharing.subject.next(message);
+      })
+    );
   }
 
   isSavedAllowed(): boolean {
@@ -100,8 +106,9 @@ export class AddEmployeeComponent {
     );
   }
 
-  private buildAlertMessage(res: IEmployee, message: any): Alert {
+  private buildAlertMessage(res: IEmployee, message: any) {
     if (res['status'] === 'SUCCESS') {
+      this.initEmployee();
       message = {
         name: ALERT_EVENTS.SUCCESS,
         content: 'Employee saved successfully',

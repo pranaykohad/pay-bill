@@ -15,7 +15,7 @@ import com.paybill.service.EmpService;
 
 @RestController
 @RequestMapping("/api/emp")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class EmployeeController {
 	
 	@Autowired
@@ -34,6 +34,11 @@ public class EmployeeController {
 	@PostMapping()
 	public Result saveEmployee(@RequestBody final Employee emp) {
 		return empService.postEmployee(emp);
+	}
+	
+	@PostMapping("delete")
+	public Result daleteEmployee(@RequestBody final Employee emp) {
+		return empService.deleteEmployee(emp);
 	}
 
 }

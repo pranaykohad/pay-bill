@@ -1,1 +1,92 @@
-<p>update-employee works!</p>
+<div id="update-emp" style="margin-top: 10px;">
+  <div class="col-md-3 mb-3">
+    <app-searchable-dropdown [empList]="empList" (onOptionChange)="onOptionChangeHandler($event)">
+    </app-searchable-dropdown>
+  </div>
+
+  <div *ngIf="selectedEmp">
+    <div class="form-group row pb-4">
+      <div class="col-md-3 d-flex flex-column">
+        <label for="prefix">Prefix</label>
+        <select (change)="setPrefix($event.target.value)" style="height: 38px;">
+          <option *ngFor="let prefix of PREFIX_LIST" [selected]="prefix === selectedEmp.prefix">{{prefix}}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="firstName">First Name <span class="needed">*</span></label>
+        <input class="form-control" id="firstName" [(ngModel)]="selectedEmp.firstName"
+          (change)="setFirstName($event.target.value)" />
+      </div>
+      <div class="col-md-3">
+        <label for="lastName">Last Name <span class="needed">*</span></label>
+        <input class="form-control" id="lastName" [(ngModel)]="selectedEmp.lastName"
+          (change)="setLastName($event.target.value)" />
+      </div>
+      <div class="col-md-3">
+        <label for="shortName">Short Name <span class="needed">*</span></label>
+        <input class="form-control" id="shortName" [(ngModel)]="selectedEmp.shortName"
+          (change)="setShortName($event.target.value)" />
+      </div>
+    </div>
+
+    <div class="form-group row pb-4">
+      <div class="col-md-3">
+        <label for="staffCode">Staff Code <span class="needed">*</span></label>
+        <input class="form-control" id="staffCode" [(ngModel)]="selectedEmp.staffCode"
+          (change)="setStaffCode($event.target.value)" />
+      </div>
+      <div class="col-md-3">
+        <label for="designation">Designation <span class="needed">*</span></label>
+        <input class="form-control" id="designation" [(ngModel)]="selectedEmp.designation"
+          (change)="setDesignation($event.target.value)" />
+      </div>
+      <div class="col-md-3 d-flex flex-column">
+        <label for="level">Level <span class="needed">*</span></label>
+        <p-inputNumber id="level" [(ngModel)]="selectedEmp.level" inputId="withoutgrouping" [useGrouping]="false"
+          (change)="setLevel($event.target.value)">
+        </p-inputNumber>
+      </div>
+    </div>
+
+    <div class="form-group row pb-4">
+      <div class="col-md-3 d-flex flex-column">
+        <label for="PentionScheme">Pention Scheme</label>
+        <select id="PentionScheme" (change)="setPentionScheme($event.target.value)" style="height: 38px;">
+          <option *ngFor="let pention of PENTION_SCHEME" [selected]="pention === selectedEmp.pention">{{pention}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="noOfPostSanctioned">No. of Post Sanctioned <span class="needed">*</span></label>
+        <p-inputNumber id="noOfPostSanctioned" [(ngModel)]="selectedEmp.noOfPostSanctioned"
+          (onInput)="setNoOfPostSant($event.value)" inputId="withoutgrouping" [useGrouping]="false">
+        </p-inputNumber>
+      </div>
+      <div class="col-md-3">
+        <label for="staffInPosition">Staff in Position <span class="needed">*</span></label>
+        <p-inputNumber id="staffInPosition" [(ngModel)]="selectedEmp.staffInPosition"
+          (onInput)="setStaffInPos($event.value)" inputId="withoutgrouping" [useGrouping]="false">
+        </p-inputNumber>
+      </div>
+    </div>
+
+    <div class="form-group row pb-4">
+      <div class="col-md-3 d-flex flex-column">
+        <label for="type">Type</label>
+        <select id="type" (change)="setType($event.target.value)" style="height: 38px;">
+          <option *ngFor="let type of TYPE_LIST" [selected]="type === selectedEmp.empType">{{type}}</option>
+        </select>
+      </div>
+      <div class="col-md-3 d-flex flex-column">
+        <label for="role">Role</label>
+        <select id="role" (change)="setRole($event.target.value)" style="height: 38px;">
+          <option *ngFor="let role of ROLE_LIST" [selected]="role === selectedEmp.role">{{role}}</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-success" [disabled]="!isSavedAllowed()" (click)="addEmployee()">Update Employee
+      Detail</button>
+  </div>
+
+</div>

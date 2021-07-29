@@ -1,51 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ALERT_EVENTS } from 'src/global-enums';
 import { Allowance } from 'src/model/Allowance';
 import { DatePicker } from 'src/model/DatePicker';
 import { Deduction } from 'src/model/Deduction';
 import { Employee, IEmployee } from 'src/model/Emp';
 import { ILedger, Ledger } from 'src/model/Ledger';
-import { ISetting, Setting } from 'src/model/Setting';
+import { DataSharingService } from 'src/service/data-sharing.service';
 import { EmployeeService } from 'src/service/employee.service';
 import { LedgerService } from 'src/service/ledger.service';
-import { SettingService } from 'src/service/setting.service';
 import { UtilService } from 'src/service/util.service';
+import { Attachment } from './../../model/Attachment';
 
 @Component({
   selector: 'app-generate-pay-bill',
   templateUrl: './generate-pay-bill.component.html',
   styleUrls: ['./generate-pay-bill.component.scss'],
 })
-export class GeneratePayBillComponent implements OnInit {
+export class GeneratePayBillComponent implements OnInit, OnDestroy {
   empList: Employee[];
   selectedEmp: IEmployee;
   noOfDays: number;
   selectedDate: string;
   ledger: ILedger;
   userMsg = 'Please select Employee and date';
-  setting: ISetting;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private utilService: UtilService,
     private employeeService: EmployeeService,
     private ledgerService: LedgerService,
-    private settingService: SettingService
+    private dataSharing: DataSharingService
   ) {
     this.empList = [];
     this.selectedEmp = new Employee();
     this.ledger = new Ledger();
-    this.setting = new Setting();
-    this.setting.daAllowancePer = 17;
-    this.setting.spclAllowancePer = 10;
-    this.setting.daOnTrAllowancePer = 17;
     this.initAllowance();
     this.initDeduction();
-    this.initSettings();
   }
 
   ngOnInit(): void {
-    this.employeeService.getAllEmp().subscribe((res) => {
-      this.empList = res['data'];
-    });
+    this.subscription.add(
+      this.employeeService.getAllEmp().subscribe((res) => {
+        this.empList = res['data'];
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onOptionChangeHandler(seletedEmp: Employee) {
@@ -66,24 +69,54 @@ export class GeneratePayBillComponent implements OnInit {
   }
 
   getPayBill() {
-    this.ledgerService
-      .getPayBill(this.selectedEmp.empId, this.selectedDate)
-      .subscribe((res) => {
+    this.subscription.add(
+      this.ledgerService
+        .getPayBill(this.selectedEmp.empId, this.selectedDate)
+        .subscribe((res) => {
+          if (res['data']) {
+            this.ledger = res['data'];
+          } else {
+            this.noOfDays = null;
+            this.userMsg = 'No Record Found';
+          }
+        })
+    );
+  }
+
+  downloadPayBill() {
+    this.subscription.add(
+      this.ledgerService.downloadPayBill(this.ledger).subscribe((res) => {
         if (res['data']) {
-          this.ledger = res['data'];
+          const attachment: Attachment = new Attachment(
+            res['data'].filename,
+            res['data'].fileContent,
+            res['data'].mimeType
+          );
+          this.utilService.downloadFile(attachment);
+          let message = null;
+          message = this.buildAlertMessage(res, message);
+          this.dataSharing.subject.next(message);
         } else {
           this.noOfDays = null;
           this.userMsg = 'No Record Found';
         }
-      });
+      })
+    );
   }
 
-  downloadPayBill() {}
-
-  private initSettings() {
-    this.settingService.getSetting().subscribe((res) => {
-      this.setting = res['data'];
-    });
+  private buildAlertMessage(res: Attachment, message: any) {
+    if (res['status'] === 'SUCCESS') {
+      message = {
+        name: ALERT_EVENTS.SUCCESS,
+        content: 'PDF downloaded successfully',
+      };
+    } else {
+      message = {
+        name: ALERT_EVENTS.FAIL,
+        content: 'Error while downloading PDF, please contact administrator',
+      };
+    }
+    return message;
   }
 
   private initAllowance() {

@@ -54,4 +54,16 @@ public class EmpServiceImpl implements EmpService {
 		return result;
 	}
 
+	@Override
+	public Result deleteEmployee(final Employee emp) {
+		final Result result = new Result();
+		result.setStatus(ResStatus.SUCCESS);
+		try {
+			employeeRepository.deleteById(Integer.parseInt(Integer.toString(emp.getEmpId())));
+		} catch (Exception e) {
+			result.setStatus(ResStatus.FAILURE);
+		}
+		return result;
+	}
+
 }

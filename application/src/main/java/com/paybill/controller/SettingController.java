@@ -14,7 +14,7 @@ import com.paybill.service.SettingService;
 
 @RestController
 @RequestMapping("/api/setting")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 public class SettingController {
 	
 	@Autowired

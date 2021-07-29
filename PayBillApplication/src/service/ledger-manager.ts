@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 import { Allowance } from 'src/model/Allowance';
 import { Deduction } from 'src/model/Deduction';
 import { ILedger, Ledger } from 'src/model/Ledger';
+import { Setting } from 'src/model/Setting';
+import { SettingService } from './setting.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EventManager {
+export class LedgerManager {
   ledger: ILedger;
 
-  constructor() {
+  constructor(private settingService: SettingService) {
     this.ledger = new Ledger();
     this.ledger.employee = new Employee();
     this.ledger.noOfDays = null;
@@ -60,5 +62,14 @@ export class EventManager {
   updateNetAmount() {
     this.ledger.netAmount =
       this.ledger.allowance.grossTotal - this.ledger.deduction.totalDeduction;
+  }
+
+  initSettings() {
+    this.settingService.getSetting().subscribe((res) => {
+      const setting: Setting = res['data'];
+      this.ledger.daAllowancePer = setting.daAllowancePer;
+      this.ledger.spclAllowancePer = setting.spclAllowancePer;
+      this.ledger.daOnTrAllowancePer = setting.daOnTrAllowancePer;
+    });
   }
 }

@@ -22,42 +22,42 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>Pay in Pay Martix:</label>
-            <span class="bold">{{eventManager.ledger.allowance.payInPayMatrix | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.allowance.payInPayMatrix | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>CPF Subscription:</label>
-            <span class="bold">{{eventManager.ledger.deduction.cpfSubs | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.cpfSubs | currencyComma}}</span>
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <div class="d-flex justify-content-between">
-            <label>D.A. ({{setting.daAllowancePer}}% Pay in Pay Martix):</label>
-            <span class="bold">{{eventManager.ledger.allowance.dearnessAllow | currencyComma}}
+            <label>D.A. ({{ledgerMgr.ledger.daAllowancePer}}% Pay in Pay Martix):</label>
+            <span class="bold">{{ledgerMgr.ledger.allowance.dearnessAllow | currencyComma}}
             </span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>CPF Arrears:</label>
-            <span class="bold">{{eventManager.ledger.deduction.cpfArrears | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.cpfArrears | currencyComma}}</span>
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <div class="d-flex justify-content-between">
-            <label>Special Allow. ({{setting.spclAllowancePer}}% Pay in Pay Martix):</label>
-            <span class="bold">{{eventManager.ledger.allowance.specialAllow | currencyComma}}</span>
+            <label>Special Allow. ({{ledgerMgr.ledger.spclAllowancePer}}% Pay in Pay Martix):</label>
+            <span class="bold">{{ledgerMgr.ledger.allowance.specialAllow | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>CPF Advance:</label>
-            <span class="bold">{{eventManager.ledger.deduction.cpfAdvance | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.cpfAdvance | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -65,13 +65,13 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>HRA: </label>
-            <span class="bold">{{eventManager.ledger.allowance.hra | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.allowance.hra | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>Number of Installment:</label>
-            <span class="bold">{{eventManager.ledger.deduction.noOfInstall | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.noOfInstall | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -79,27 +79,27 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>Travel Allowance: </label>
-            <span class="bold">{{eventManager.ledger.allowance.travelAllow | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.allowance.travelAllow | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>GSLIS: </label>
-            <span class="bold">{{eventManager.ledger.deduction.gslis | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.gslis | currencyComma}}</span>
           </div>
         </td>
       </tr>
       <tr>
         <td>
           <div class="d-flex justify-content-between">
-            <label>D.A on T.R. ({{setting.daOnTrAllowancePer}}% of Travel Allowance):</label>
-            <span class="bold">{{eventManager.ledger.allowance.daOnTravelAllow | currencyComma}}</span>
+            <label>D.A on T.R. ({{ledgerMgr.ledger.daOnTrAllowancePer}}% of Travel Allowance):</label>
+            <span class="bold">{{ledgerMgr.ledger.allowance.daOnTravelAllow | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>NPS(Mgmt. Share):</label>
-            <span class="bold">{{eventManager.ledger.deduction.npsMgmtShare | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.npsMgmtShare | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -107,13 +107,13 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>House Master Allowance:</label>
-            <span class="bold">{{eventManager.ledger.allowance.houseMasterAllow | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.allowance.houseMasterAllow | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>NPS(Own Share)</label>
-            <span class="bold">{{eventManager.ledger.deduction.npsOwnShare | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.npsOwnShare | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -121,13 +121,13 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>Cash handling Allowance:</label>
-            <span class="bold">{{eventManager.ledger.allowance.cashHandlingAllow | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.allowance.cashHandlingAllow | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>NPS(Mgmt. Share) Arrears</label>
-            <span class="bold">{{eventManager.ledger.deduction.npsMgmtShareArrears | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.npsMgmtShareArrears | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -135,13 +135,13 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>NPS(Mgmt. Share) 10%:</label>
-            <span class="bold">{{eventManager.ledger.allowance.npsMgmtShare | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.allowance.npsMgmtShare | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>Income Tax: </label>
-            <span class="bold">{{eventManager.ledger.deduction.incomeTax | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.incomeTax | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -149,13 +149,13 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>Other Allowances:</label>
-            <span class="bold">{{eventManager.ledger.allowance.otherAllowance | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.allowance.otherAllowance | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>Professional Tax: </label>
-            <span class="bold">{{eventManager.ledger.deduction.professionalTax | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.professionalTax | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -164,7 +164,7 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>Water and Electric Charges: </label>
-            <span class="bold">{{eventManager.ledger.deduction.waterElectricCharges | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.waterElectricCharges | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -172,7 +172,7 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>Other Deduction1: </label>
-            <span class="bold">{{eventManager.ledger.deduction.otherDeduction1 | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.otherDeduction1 | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -180,7 +180,7 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>Other Deduction2: </label>
-            <span class="bold">{{eventManager.ledger.deduction.otherDeduction2 | currencyComma}}</span>
+            <span class="bold">{{ledgerMgr.ledger.deduction.otherDeduction2 | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -188,13 +188,13 @@
         <td>
           <div class="d-flex justify-content-between">
             <label>Gross Total</label>
-            <span class="bold">&#8377; {{eventManager.ledger.allowance.grossTotal | currencyComma}}</span>
+            <span class="bold">&#8377; {{ledgerMgr.ledger.allowance.grossTotal | currencyComma}}</span>
           </div>
         </td>
         <td>
           <div class="d-flex justify-content-between">
             <label>Total Deduction</label>
-            <span class="bold">&#8377; {{eventManager.ledger.deduction.totalDeduction | currencyComma}}</span>
+            <span class="bold">&#8377; {{ledgerMgr.ledger.deduction.totalDeduction | currencyComma}}</span>
           </div>
         </td>
       </tr>
@@ -202,7 +202,7 @@
         <td colspan="2">
           <div class="d-flex justify-content-between">
             <label>Net Amount</label>
-            <span class="bold">&#8377; {{eventManager.ledger.netAmount |
+            <span class="bold">&#8377; {{ledgerMgr.ledger.netAmount |
               currencyComma}}</span>
           </div>
         </td>
@@ -213,7 +213,7 @@
 
   <div class="d-flex justify-content-end">
     <button class="col-md-2 btn btn-outline-success align-self-end" (click)="savePayBill()"
-      [disabled]="!eventManager.ledger.noOfDays">Save Pay Bill</button>
+      [disabled]="!ledgerMgr.ledger.noOfDays">Save Pay Bill</button>
   </div>
 
 </div>

@@ -10,6 +10,9 @@ export interface ILedger {
   allowance: Allowance;
   deduction: Deduction;
   employee: Employee;
+  daAllowancePer: number;
+  spclAllowancePer: number;
+  daOnTrAllowancePer: number;
 }
 
 export class Ledger implements ILedger {
@@ -20,4 +23,7 @@ export class Ledger implements ILedger {
   allowance: Allowance;
   deduction: Deduction;
   employee: Employee;
+  daAllowancePer: number;
+  spclAllowancePer: number;
+  daOnTrAllowancePer: number;
 }
