@@ -17,25 +17,25 @@ import com.paybill.service.EmpService;
 @RequestMapping("/api/emp")
 @CrossOrigin("*")
 public class EmployeeController {
-	
+
 	@Autowired
 	private EmpService empService;
-	
-	@GetMapping("/{empId}")
+
+		@GetMapping("/{empId}")
 	public Result getEmployee(@PathVariable final int empId) {
 		return empService.getEmployee(empId);
 	}
-	
+
 	@GetMapping("/all")
 	public Result getAllEmp() {
 		return empService.getAllEmp();
 	}
-	
+
 	@PostMapping()
 	public Result saveEmployee(@RequestBody final Employee emp) {
 		return empService.postEmployee(emp);
 	}
-	
+
 	@PostMapping("delete")
 	public Result daleteEmployee(@RequestBody final Employee emp) {
 		return empService.deleteEmployee(emp);
