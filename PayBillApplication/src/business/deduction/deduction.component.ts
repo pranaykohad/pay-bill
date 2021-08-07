@@ -80,6 +80,11 @@ export class DeductionComponent {
     this.updateTotalDeduction();
   }
 
+  resetDeduction() {
+    this.ledgerMgr.initDeduction();
+    this.ledgerMgr.updateNetAmount();
+  }
+
   private updateTotalDeduction() {
     this.ledgerMgr.ledger.deduction.totalDeduction =
       this.ledgerMgr.ledger.deduction.cpfSubs +

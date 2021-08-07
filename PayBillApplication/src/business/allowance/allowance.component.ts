@@ -61,6 +61,11 @@ export class AllowanceComponent {
     this.updateGrossTotal();
   }
 
+  resetAllowance() {
+    this.ledgerMgr.initAllowance();
+    this.ledgerMgr.updateNetAmount();
+  }
+
   private updateGrossTotal() {
     this.ledgerMgr.ledger.allowance.grossTotal =
       this.ledgerMgr.ledger.allowance.payInPayMatrix +
