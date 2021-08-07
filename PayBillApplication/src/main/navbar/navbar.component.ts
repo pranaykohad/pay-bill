@@ -12,16 +12,31 @@ export class NavbarComponent implements OnDestroy {
   alert: Alert = new Alert(null, null);
   private subscription: Subscription = new Subscription();
   private alertTimeout: any;
+  showLoader = false;
 
   constructor(private dataSharing: DataSharingService) {
     this.subscription.add(
       this.dataSharing.subject.subscribe((res: any) => {
-        this.alertHandler({ message: res.content, type: res.name });
+        if (res.name === 'SPINNER') {
+          if (res.content === true) {
+            this.showLoader = true;
+          } else {
+            setTimeout(() => {
+              this.showLoader = false;
+            }, 500);
+          }
+        }
+        if (res.name !== 'SPINNER') {
+          setTimeout(() => {
+            this.alertHandler({ message: res.content, type: res.name });
+          }, 500);
+        }
       })
     );
   }
 
   ngOnDestroy(): void {
+    this.showLoader = false;
     this.subscription.unsubscribe();
   }
 

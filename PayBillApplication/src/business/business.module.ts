@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { SpinnerInterceptor } from 'src/interceptor/spinner.interceptor';
 import { EmployeeService } from 'src/service/employee.service';
 import { LedgerManager } from 'src/service/ledger-manager';
 import { LedgerService } from 'src/service/ledger.service';
@@ -46,6 +47,12 @@ import { UpperCasePipe } from './upper-case.pipe';
     HttpClientModule,
   ],
   exports: [SearchableDropdownComponent],
-  providers: [EmployeeService, LedgerService, LedgerManager, SettingService],
+  providers: [
+    EmployeeService,
+    LedgerService,
+    LedgerManager,
+    SettingService,
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+  ],
 })
 export class BusinessModule {}

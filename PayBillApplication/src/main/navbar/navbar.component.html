@@ -1,7 +1,10 @@
-<div id="navbar" class="d-flex align-items-center navbar-contr">
+<div id="navbar" class="d-flex align-items-center navbar-contr justify-content-between">
   <div class="p-2 title" style="color: white">Navodaya Vidyalaya Samiti</div>
-  <div style="margin-left: 145px">
+  <div style="margin-right: 450px">
     <app-alert [message]="alert.message" [type]="alert.type">
     </app-alert>
+  </div>
+  <div *ngIf="showLoader">
+    <p-progressSpinner [style]="{height: '50px'}"></p-progressSpinner>
   </div>
 </div>

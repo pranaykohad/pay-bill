@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_URL } from 'src/app.constant';
@@ -14,11 +14,6 @@ export class EmployeeService {
   }
 
   getAllEmp(): Observable<Employee> {
-    // let headers = new HttpHeaders({
-    //   'Access-Control-Allow-Origin': '*',
-    //   Authorization: 'my-auth-token',
-    // });
-    // return this.http.get<Employee>(`${BASE_URL}emp/all`, { headers: headers });
     return this.http.get<Employee>(`${BASE_URL}emp/all`);
   }
 
